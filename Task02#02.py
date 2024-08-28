@@ -9,7 +9,9 @@ d = [
 ]
 
 df = pd.DataFrame(d)
+#計算給定的資料中不同 weekday 的 visitor 總和為何？
 
+❏ Sample Output: { 'Sun': 376, 'Mon': 782 }
 grouped = df.groupby('weekday')
 result = grouped.agg({'visitor': 'sum'})
 print(result)
