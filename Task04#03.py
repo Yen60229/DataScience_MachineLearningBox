@@ -19,7 +19,12 @@ mean_price = df.groupby("Manufacturer")["Price"].mean()
 print(mean_price)
 
 #How to replace missing values of `price` columns with the mean depending on its manufacturers?
-df['Price'] = df.apply(lambda x: mean_price[x['Manufacturer']] if pd.isna(x['Price']) else x['Price'], axis=1)
+df10 = df * 1
+price_na = df10['Price'].isna()
+for i in df10.index:
+    if price_na.loc[i]:
+        df10.loc[i, 'Price'] = mean_price[df10.loc[i, 'Manufacturer']]   
+           
 conn = sqlite3.connect('Cars93-miss.db')
 df.to_sql('Cars93-miss', conn, if_exists='replace', index=False)
 conn.close()
